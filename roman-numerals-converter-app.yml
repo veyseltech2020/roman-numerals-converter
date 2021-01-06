@@ -1,7 +1,10 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-  CloudFormation Template for Roman Numerals Converter Application. This template creates Python Flask Web Application on Amazon Linux 2 (XXXXXXXXXXXXXXXXX) EC2 Instance with custom security group allowing http connections on port 80.
-  Roman Numerals Converter Application is downloaded from Github repository, then installed on Flask.
+  CloudFormation Template for Roman Numerals Converter Application. This template
+  creates Python Flask Web Application on Amazon Linux 2 ami-0be2609ba883822ec EC2 Instance with
+  custom security group allowing http connections on port 80.
+  Roman Numerals Converter Application is downloaded from Github repository,
+  then installed on Flask.
 Parameters:
   KeyPairName:
     Description: Enter the name of your Key Pair for SSH connections
@@ -25,7 +28,7 @@ Resources:
   WebServerHost:
     Type: "AWS::EC2::Instance"
     Properties:
-      ImageId: ami-0947d2ba12ee1ff75
+      ImageId: ami-0be2609ba883822ec
       InstanceType: t2.micro
       KeyName: !Ref KeyPairName
       SecurityGroupIds: 
@@ -34,18 +37,18 @@ Resources:
         - Key: Name
           Value: !Sub Web Server of ${AWS::StackName} Stack 
       UserData: !Base64 |
-          #! /bin/bash
-          yum update -y
-          yum install python3 -y
-          pip3 install flask
-          cd /home/ec2-user
-          wget https://raw.githubusercontent.com/serdarcw/clarusway-python-workshop/master/001-project-roman-numerals-converter/app.py
-          mkdir templates
-          cd templates
-          wget https://raw.githubusercontent.com/serdarcw/clarusway-python-workshop/master/001-project-roman-numerals-converter/templates/index.html
-          wget https://raw.githubusercontent.com/serdarcw/clarusway-python-workshop/master/001-project-roman-numerals-converter/templates/result.html
-          cd ..
-          python3 app.py
+        #! /bin/bash
+        yum update -y
+        yum install python3 -y
+        pip3 install flask
+        cd /home/ec2-user
+        wget https://raw.githubusercontent.com/veyseltech2020/roman-numerals-converter/master/app.py
+        mkdir templates
+        cd templates
+        wget https://raw.githubusercontent.com/veyseltech2020/roman-numerals-converter/master/templates/index.html
+        wget https://raw.githubusercontent.com/veyseltech2020/roman-numerals-converter/master/templates/result.html
+        cd ..
+        python3 app.py
 
 Outputs: 
   WebsiteURL:
